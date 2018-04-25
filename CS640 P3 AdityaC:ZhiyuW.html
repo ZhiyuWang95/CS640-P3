@@ -1,0 +1,195 @@
+<html>
+<head>
+<title> CS640 Homework Template: P3 Student Name [Zhiyu Wang]  </title>
+<style>
+<!--
+body{
+font-family: 'Trebuchet MS', Verdana;
+}
+p{
+font-family: 'Trebuchet MS', Times;
+margin: 10px 10px 15px 20px;
+}
+h3{
+margin: 5px;
+}
+h2{
+margin: 10px;
+}
+h1{
+margin: 10px 0px 0px 20px;
+}
+div.main-body{
+align:center;
+margin: 30px;
+}
+hr{
+margin:20px 0px 20px 0px;
+}
+Ans1{
+  color: blue;
+}
+-->
+</style>
+</head>
+
+<body>
+<center>
+<a href="http://www.bu.edu"><img border="0" src="http://www.cs.bu.edu/fac/betke/images/bu-logo.gif"
+width="119" height="120"></a>
+</center>
+
+<h1>Game Playing</h1>
+<p> 
+ CS 640 Programming assignment 3 <br>
+ Aditya Chechani <br>
+ Zhiyu Wang <br>
+    April 25th 
+</p>
+
+<div class="main-body">
+<hr>
+<h2> Problem Definition </h2>
+<p>
+Give a concise description of current problem.  What
+needs to be solved?  Why is the result useful?  Do you make any assumptions?
+What are the anticipated difficulties?<br />
+<Ans1>
+According to the description of the programming assignment, we need to finish the following assignments.<br />
+1. Design a static evaluator,<br />
+2. Select an adversarial search algorithm from the ones you have studied in class (e.g., minimax search, alpha-beta search, a heuristic pruning method),<br />
+3. Implement this algorithm and apply it to the Atropos game,<br />
+4. Clearly comment your code so that key algorithmic ideas are clear and parameters (e.g., lookahead depth of search) are easy to find and modify,<br />
+5. Package your code so that the executable can participate in an automatic tournament.
+</Ans1>
+</p>
+
+<hr>
+<h2> Method and Implementation </h2>
+<p>Give a concise description of the implemented method. For example, you might
+  describe the motivation of your idea, the algorithmic steps of your methods, or
+  the mathematical formulation of your method.
+<Ans1>
+  Basically, for our player module, the inputs would be Board and LastPlay.<br />
+  Input:<br />
+  Board is in this format, [13][302][1003][30002][100003][3000002][121212]<br />
+  LastPlay is like, LastPlay:(1,3,1,3).<br />
+  There are 4 steps in our solution:<br />
+  1. Find the available nodes around the LastPlay.<br />
+  2. Generate all the possible moves and make a evaluation to each move.<br />
+  3. Do minimax pruning to the evaluation tree.<br />
+  4. Return the best next move.
+</Ans1>
+</p>
+
+<p>
+Briefly outline the functions you created in your code to carry out the
+algorithmic steps you described earlier.
+</p>
+<Ans1>
+  Our player module is written in python3, and we made 5 functions for our player module, they are<br />
+  1. findAvailable()<br />
+  Input is current board, it applys two for loop to scan the board, getting the locations for all the nodes with value 0.<br />
+  Outputs for this function is a list of locations, like [(x1,y1),(x2,y2)...].<br />
+  2. findNeighbors()<br />
+  Inputs are current board, lastplay and a boolen requirement.
+  it scan through all the neighbor nodes, and check if one is in the avaiable list, if it is add the neighbor node into availble list, if not, add into the unavailable list.<br />
+  The output depends on the requirement, if the requirement is True, return the available list, if the requirement if False, return the unavaiable list.<br />
+</Ans1>
+<hr>
+<h2>Experiments</h2>
+<p>
+Describe your experiments, including the number of tests that you
+performed, and the relevant parameter values.  </p>
+<p>
+Define your evaluation
+metrics, e.g., detection rates, accuracy, running time. </p>
+<tr>
+  <Ans1>
+  For the experiment, we ran 10 games again zeekPlayer and 10 games against zookPlayer with the interface provided to us. The board size is 7, our player plays as the Script One, and the random player plays as the Script two. So in the result table, the "One" in the winner row means the Script One win the game, "Two" means Script Two win the game.
+  </Ans1>
+</tr>
+
+<hr>
+<h2> Results</h2>
+<p>
+List your experimental results.  Provide examples of input images and output
+images. If relevant, you may provide images showing any intermediate steps.  If
+your work involves videos, do not submit the videos but only links to them.
+</p>
+
+<p>
+<table>
+<tr><td colspan=3><center><h3>Results</h3></center></td></tr>
+<tr>
+  <Ans1>
+    For these 2 tournaments, in the 10 games play against zookPlayer, our player won 9 games out of 10. However when play against zeekPlayer, we just won 6 games out of 10. The details about the games, such as final boards, Lastplay and the step numbers could be checked in the links below "Games records against zookPlayer" and "Games records against zeekPlayer".
+    </Ans1>
+<td> Trial </td><td> Result Image</td> 
+</tr>
+<tr>
+  <td> trial 1 </td> 
+  <td> <img src="trial1.png"> </td> 
+</tr> 
+<tr>
+  <td> trial 2 </td> 
+  <td> <img src="trial2.png"> </td> 
+</tr> 
+</table>
+  <a href="VSzookPlayer.pdf">Games records against zookPlayer</a><br />
+  <a href="VSzeekPlayer.pdf">Games records against zeekPlayer</a>
+</p>
+
+
+
+<hr>
+<h2> Discussion </h2>
+
+<p> 
+Discuss your method and results:
+<ul>
+<li>What are the strengths and weaknesses of your method? </li>
+<li>Do your results show that your method is generally successful or
+     are there limitations? Describe what you expected to find in your
+     experiments, and how that differed or was confirmed by your
+     results. </li>
+<li>Potential future work. How could your method be improved?   What
+would you try (if you had more time) to overcome the
+failures/limitations of your work?</li> 
+</ul>
+</p>
+
+<hr>
+<h2> Conclusions </h2>
+
+<p>
+Based on your discussion, what are your conclusions?  What is your
+main message?
+</p>
+
+
+<hr>
+<h2> Credits and Bibliography </h2>
+<p>
+
+Cite any papers or other references you consulted while developing
+your solution.  Citations to papers should include the authors, the
+year of publication, the title of the work, and the publication
+information (e.g., book name and publisher; conference proceedings and
+location; journal name, volume and pages; technical report and
+institution).  
+
+<p>
+Material on the web should include the url and date of access.
+</p>
+
+<p>
+Credit any joint work or discussions with your classmates. 
+</p>
+<hr>
+</div>
+</body>
+
+
+
+</html>
