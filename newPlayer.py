@@ -5,7 +5,7 @@ import pprint
 
 inf = float("inf")
 negInf = float("-inf")
-lookDepth = 5
+lookDepth = 6
 
 #read input
 inp = sys.argv[1].replace("[", "").split("]")
@@ -27,14 +27,6 @@ for row in reversed(inp):
 	for num in list(row):
 		thisRow.append(int(num))
 	board.append(thisRow)
-
-
-#pick next move
-def numberOfSpots(boardSize): #figure out the number of spots based on board size
-	if boardSize % 2 == 1:
-		return size * (float(size / 2) + 0.5)
-	else:
-		return size * (float(size / 2))
 
 def findNeighbors(board, lastPlay, available):  #returns list of neighboring spots
 	topPositive = lastPlay[1]
@@ -107,36 +99,16 @@ def calcScore(board, lastPlay, maxx):  #figure out score for move
 	boundin = set()
 	odd = 0
 	even = 0
-	# for (up, right) in availableA:
-	# 	if (up, right) not in boundin:
-	# 		bounded = findAvailable2(board, [0,up,right,size+2-up-right], set())
-	# 		boundin = boundin | bounded
-	# 		if len(bounded) % 2 == 0:
-	# 			even += 1
-	# 		else:
-	# 			odd += 1
-	# trapQueen += (odd - even)
-	# #good score if one move left
-	# board[lastPlay[1]][lastPlay[2]] = 0
-	# current = findAvailable2(board, lastPlay, set())
-	# board[lastPlay[1]][lastPlay[2]] = lastPlay[0]
-	# if len(current) % 2 == 0:
-	# 	if maxx:
-	# 		trapQueen += 1
-	# 	else:
-	# 		trapQueen -= 1
-	# #decides on color
-	# colorz = 0
-	# color = lastPlay[0]
-	# noGoNeighbors = findNeighbors(board, lastPlay, False)
-	# scorez = [0, 0, 0, 0]
-	# for (t, r) in noGoNeighbors:
-	# 	if maxx:
-	# 		scorez[board[t][r]] += (trapQueen / 7)
-	# 	else:
-	# 		scorez[board[t][r]] -= (trapQueen / 7)
-	# colorz = trapQueen - scorez[color]
-	# total = trapQueen + colorz
+	for (up, right) in availableA:
+		if (up, right) not in boundin:
+			bounded = findAvailable2(board, [0,up,right,size+2-up-right], set())
+			boundin = boundin | bounded
+			if len(bounded) % 2 == 0:
+				even += 2
+			else:
+				odd += 2
+	trapQueen += (odd - even)
+	total += trapQueen
 
 	if maxx:
 		neighbors = findNeighbors(board, lastPlay, 'all')
@@ -156,11 +128,11 @@ def calcScore(board, lastPlay, maxx):  #figure out score for move
 			
 			#Assign medium score neighbors have same color as move
 			if board[up][right] == board[lastPlay[1]][lastPlay[2]]:
-				total += 0.3
+				total += 0.5
 		
 		# Assign high score when few positions left around after your move
 		if len(availableA) > 0:
-			total += int(50/len(availableA))
+			total += int(3/len(availableA))
 
 	if not maxx:
 		neighbors = findNeighbors(board, lastPlay, 'all')
@@ -180,11 +152,11 @@ def calcScore(board, lastPlay, maxx):  #figure out score for move
 			#Assign medium score neighbors have same color as move
 			# print("LastPlay: ", lastPlay)
 			if board[up][right] == board[lastPlay[1]][lastPlay[2]]:
-				total -= 0.3
+				total -= 0.5
 		
 		# Assign high score when few positions left around after your move
 		if len(availableA) > 0:
-			total -= int(50/len(availableA))
+			total -= int(3/len(availableA))
 	return (total, lastPlay)
 
 def minimaxAB(board, lastPlay, depth, maxx, alpha, beta):  #minimax & a-b pruning
