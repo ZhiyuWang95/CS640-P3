@@ -93,8 +93,21 @@ algorithmic steps you described earlier.
   Outputs for this function is a list of locations, like [(x1,y1),(x2,y2)...].<br />
   2. findNeighbors()<br />
   Inputs are current board, lastplay and a boolen requirement.
-  it scan through all the neighbor nodes, and check if one is in the avaiable list, if it is add the neighbor node into availble list, if not, add into the unavailable list.<br />
-  The output depends on the requirement, if the requirement is True, return the available list, if the requirement if False, return the unavaiable list.<br />
+  it scans through all the neighbor nodes, and check if one is avaiable, if it is, it will be added into availble list, if not, added into the unavailable list.<br />
+  The output depends on the requirement. If the requirement is True, return the available list, if the requirement if False, return the unavaiable list.<br />
+  3. Loserfunction()<br />
+  Loserfunction is used to detect if the current move will cause player to lose the game. So the input for this function is the current board and move list.<br />
+  First it collects the color selection of current move, and scans through all neighbor of the move, collecting the colors of them. By detecting the amount of colors in the neighbors, it could judge if the move will cause a lose. Because if the amount of color reachs 3 after the move, which means all three colors are used in this area, a lose will happen.<br />
+  The output is also a boolen, True means the move will cause lose.<br />
+  4. evaluator()<br />
+  Evaluator function is one of two core function for this player module. The meaning of this function is each move will be scored by several rules. We applied 4 rules for the evaluator function: <br />
+  (1) Assign higher score when there are more uncolored neighbors for the move. <br />
+  (2) Assign lower score when there are more differnent colored neighbors. <br />
+  (3) Assign medium score to move when neighbots have same color as the move. <br />
+  (4) Assign higher score when the move will cause few positions left after the move.<br />
+  Besides that, if the move will cause a lose, the evaluator will return negative infinity if the level is a min level, and return positive infinity if the level is a max level. The output for this function is a list like (socre, move) pair. Move is the [c, x, y, z] list.<br />
+  5. minimaxprune()<br />
+  Minimaxprune function is another core function of the player module.
 </Ans1>
 <hr>
 <h2>Experiments</h2>
